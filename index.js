@@ -1,29 +1,54 @@
-var animal = 'dog'
+/*global describe, it */
 
-function myAnimal() {
-  return animal
-}
+describe('Fix the Scope', function() {
+  describe('myAnimal()', function() {
+    it('returns my animal', () => {
+      expect(window.myAnimal()).toEqual('dog')
+    })
+  })
 
-function yourAnimal() {
-  // How can we make sure that this function
-  // and the above function both pass?
-  // P.S.: You can't just hard-code 'cat' below
-  return animal
-}
+  describe('yourAnimal()', function() {
+    it('returns your animal', function(){
+      expect(window.yourAnimal()).toEqual('cat')
+    })
 
-function add2(n) {
-  return n + two
 
-  // Feel free to move things around!
-  const two = 2
-}
+    it('does not hard-code the answer', function() {
+      expect(window.yourAnimal.toString()).toNotContain("return 'cat'")
+    })
 
-var funkyFunction = function() {
-  return function() {
-    return "FUNKY!"
-  }
-}
+  })
 
-// We want to set theFunk equal to "FUNKY!" using our funkyFunction.
-// NOTE: you only need to modify the code below this line.
-var theFunk = funkyFunction
+  describe('add2(n)', function() {
+    it('adds two to n', function() {
+      const n = Math.floor(Math.random() * 1000)
+      expect(window.add2(n)).toEqual(n + 2)
+    })
+  })
+
+<<<<<<< HEAD
+  describe('funkyFunction()', function() {
+    it('returns a function', function() {
+      expect(typeof window.funkyFunction()).toEqual('function')
+    })
+=======
+describe('funkyFunction()', function() {
+  it('returns a function', function() {
+    expect(typeof funkyFunction()).toEqual('function')
+>>>>>>> Fix solution
+  })
+
+<<<<<<< HEAD
+  describe('theFunk', function() {
+    it('is "FUNKY!"', function() {
+      expect(window.theFunk).toEqual('FUNKY!')
+    })
+  })
+
+=======
+describe('theFunk', function() {
+  it('is "FUNKY!"', function() {
+    expect(theFunk).toEqual('FUNKY!')
+  })
+>>>>>>> Fix solution
+})

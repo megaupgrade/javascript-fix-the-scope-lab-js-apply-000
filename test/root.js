@@ -1,27 +1,54 @@
-global.expect = require('expect');
+/*global describe, it */
 
-const babel = require('babel-core');
-const jsdom = require('jsdom');
-const path = require('path');
+describe('Fix the Scope', function() {
+  describe('myAnimal()', function() {
+    it('returns my animal', () => {
+      expect(window.myAnimal()).toEqual('dog')
+    })
+  })
 
-before(function(done) {
-  const js = path.resolve(__dirname, '..', 'index.js');
-  const babelResult = babel.transformFileSync(js, {
-    presets: ['es2015']
-  });
+  describe('yourAnimal()', function() {
+    it('returns your animal', function(){
+      expect(window.yourAnimal()).toEqual('cat')
+    })
 
-  const html = path.resolve(__dirname, '..', 'index.html');
 
-  jsdom.env(html, [], {
-    src: babelResult.code,
-    virtualConsole: jsdom.createVirtualConsole().sendTo(console)
-  }, (err, window) => {
-    if (err) {
-      return done(err);
-    }
+    it('does not hard-code the answer', function() {
+      expect(window.yourAnimal.toString()).toNotContain("return 'cat'")
+    })
 
-    global.window = window;
+  })
 
-    return done();
-  });
-});
+  describe('add2(n)', function() {
+    it('adds two to n', function() {
+      const n = Math.floor(Math.random() * 1000)
+      expect(window.add2(n)).toEqual(n + 2)
+    })
+  })
+
+<<<<<<< HEAD
+  describe('funkyFunction()', function() {
+    it('returns a function', function() {
+      expect(typeof window.funkyFunction()).toEqual('function')
+    })
+=======
+describe('funkyFunction()', function() {
+  it('returns a function', function() {
+    expect(typeof funkyFunction()).toEqual('function')
+>>>>>>> Fix solution
+  })
+
+<<<<<<< HEAD
+  describe('theFunk', function() {
+    it('is "FUNKY!"', function() {
+      expect(window.theFunk).toEqual('FUNKY!')
+    })
+  })
+
+=======
+describe('theFunk', function() {
+  it('is "FUNKY!"', function() {
+    expect(theFunk).toEqual('FUNKY!')
+  })
+>>>>>>> Fix solution
+})
